@@ -11,10 +11,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdcommenter'
-Plug 'preservim/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'preservim/nerdtree' " NERDTree (File Explorer)
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Conquer of Completion (Tab Completion)
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fzf (Command-line Fuzzy Finder)
 Plug 'junegunn/fzf.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
@@ -22,11 +23,18 @@ call plug#end()
 syntax on " Syntax highlighting: ON
 colorscheme onedark
 set number " Line numbers: ON
-set tabstop=4 shiftwidth=4 smarttab autoindent
+set tabstop=4 expandtab shiftwidth=4 autoindent
 set clipboard=unnamed
 set clipboard+=unnamedplus
 " autoindent can mess with copy-pasting. Use F2 before pasting.
 set pastetoggle=<F7> " Toggles between paste and nopaste.
+
+autocmd FileType html setlocal sw=2 ts=2 expandtab
+autocmd FileType javascript setlocal sw=2 ts=2 expandtab
+autocmd FileType javascriptreact setlocal sw=2 ts=2 expandtab
+autocmd FileType typescript setlocal sw=2 ts=2 expandtab
+autocmd FileType typescriptreact setlocal sw=2 ts=2 expandtab
+autocmd FileType json setlocal sw=2 ts=2 expandtab
 
 """ Plugin Configuration
 " Airline
