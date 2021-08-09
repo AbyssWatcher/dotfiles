@@ -25,6 +25,9 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-source "$HOME/.cargo/env"
 
-export PATH=$PATH:/usr/local/go/bin
+source "$HOME/.cargo/env"
+export PATH="$PATH:/path/to/elixir/bin" # Adding Elixir to PATH.
+export PATH=$PATH:~/.local/bin # Adding Juypter Notebook to PATH
+alias pip="/usr/bin/python -m pip" # Adding an alias for pip.
+export PATH=$PATH:/usr/local/go/bin # Adding Go to PATH.
