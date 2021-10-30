@@ -128,3 +128,4 @@ neofetch
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/austin/.sdkman"
 [[ -s "/home/austin/.sdkman/bin/sdkman-init.sh" ]] && source "/home/austin/.sdkman/bin/sdkman-init.sh"
+. "$HOME/.cargo/env"

@@ -26,8 +26,18 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-source "$HOME/.cargo/env"
-export PATH="$PATH:/path/to/elixir/bin" # Adding Elixir to PATH.
-export PATH=$PATH:~/.local/bin # Adding Juypter Notebook to PATH
+# Elixir
+export PATH=$PATH:/usr/lib/elixir/bin # Adding Elixir to PATH.
+
+# Python
+# export PATH=$PATH:~/.local/bin # Adding Juypter Notebook to PATH
 alias pip="/usr/bin/python -m pip" # Adding an alias for pip.
+
+# Go
 export PATH=$PATH:/usr/local/go/bin # Adding Go to PATH.
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH/bin
+
+# Rust
+. "$HOME/.cargo/env"
