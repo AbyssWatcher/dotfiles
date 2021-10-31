@@ -1,5 +1,12 @@
 # Removes blank line between shell prompts
 add_newline = false
 
+# Change the command timeout to be 1000 ms = 3 s
+command_timeout = 3000
+
 [line_break]
-disabled = true
+disabled = false
+
+[python]
+# Only use the `python3` binary to get the version.
+python_binary = "python3"
