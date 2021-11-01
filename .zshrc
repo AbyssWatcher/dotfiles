@@ -1,113 +1,123 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# ZSH Configurations
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/austin/.oh-my-zsh"
+# ZSH Dotfile Order: [.zshenv] -> [.zprofile] -> [.zshrc] -> [.zlogin] -> [.zlogout]
+# [.zshenv]: Always sourced. Set environment variables that need to be updated frequently.
+# [.zprofile]: Like .zshenv but for commands and variables that don't need to be frequently updated.
+# [.zshrc]: Anthing needed for interactive usage (prompt, command-related, output coloring, aliases, key bindings`:w).
+# https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH Options: https://zsh.sourceforge.io/Doc/Release/Options.html
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# ZSH History: https://kevinjalbert.com/more-shell-history/
+HISTSIZE=10000 # Number of commands (from history) loaded into shell's memory.
+SAVEHIST=10000 # Number of commands your history can hold (>= HISTSIZE)
+HISTFILE=~/.zsh_history # Save history to .zsh_history.
+setopt HIST_FIND_NO_DUPS # No duplicates taken from history.
+# setopt HIST_IGNORE_ALL_DUPS # Prevent duplicates from being saved to history.
+setopt INC_APPEND_HISTORY_TIME # Append to history + Not available immediately to other shells.
+setopt HIST_IGNORE_SPACE # Remove commands from history where first char is a space.
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+setopt globdots # Show hidden files.
+# compinit && _comp_options+=(globdots) # Apparently better option, but does not work.
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+# ZSH Completion w/ correct colors.
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors ''
+# ZSH List Directories First
+zstyle ':completion:*:matches' group 'yes'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-dirs-first true
+# ZSH List dotfiles first: Need to use "file-sort".
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+autoload -Uz compinit && compinit # Use modern completion system.
 
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Other zstyle defaults (newuser.zshrc.recommended)
+# zstyle ':completion:*' auto-description 'specify: %d'
+# zstyle ':completion:*' completer _expand _complete _correct _approximate
+# zstyle ':completion:*' format 'Completing %d'
+# zstyle ':completion:*' group-name ''
+# zstyle ':completion:*' menu select=2
+# zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+# zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+# zstyle ':completion:*' menu select=long
+# zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+# zstyle ':completion:*' use-compctl false
+# zstyle ':completion:*' verbose true
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+# zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# NVM (Node.js) (/home/austin/.nvm/versions/node/<version_number>/bin)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+# Go (/usr/local/go/bin AND /home/austin/go/bin)
+export GOPATH=$(go env GOPATH)
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+# export PATH=$PATH:/usr/local/go/bin # Adding Go to PATH.
+# export GOPATH=$HOME/go
+# export GOBIN=$GOPATH/bin
+# export PATH=$PATH:$GOPATH/bin
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# Elixir (/usr/lib/elixir/bin)
+export PATH=$PATH:/usr/lib/elixir/bin # Adding Elixir to PATH.
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Python (home/austin/.local/bin)
+alias pip="/usr/bin/python -m pip" # Adding an alias for pip.
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# Rust (found in .zshenv) (/home/austin/.cargo/bin)
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Starship: https://starship.rs/
+# Starship
 eval "$(starship init zsh)"
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+# typeset = Set or display attributes and values for shell parameters.
+# -U = When displaying the PATH, keep only the first occurrence of each duplicated value.
+typeset -U PATH path
+
+# Aliases (Linux)
+
+# ls (https://github.com/coreutils/coreutils/blob/master/src/ls.c)
+# --color is equivalent to --color=always
+# Folders first, Then other files AND Sort by UTF-8 (dotfiles grouped together).
+# -v --group-directories-first
+alias ls="ls -v -h --color --group-directories-first" # Dotfiles fist + Human Readable + Color + Folders first.
+# The problem with "-v" is that the file ordering is now case-sensitive.
+# There is a hack to get the ordering I want. But it requires some external file modification.
+# https://unix.stackexchange.com/questions/288333/how-can-i-make-ls-show-dotfiles-first-while-staying-case-insensitive
+alias la="ls -A" # Include hidden files.
+alias ll="ls -l" # Use long listing format.
+alias lla="ll -A" # Use long listing format + Include hidden files.
+
+# exa (https://github.com/ogham/exa)
+# An alternative to ls. Writen in Rust + Installed on Rust toolchain.
+alias exa="exa --git --group-directories-first"
+alias exal="exa --long --header --git --group-directories-first"
+# exa -a
+# exal -a
+# (ls) = exa --long --header --git --group-directories-first
+# (la) = exa -a --long --header --git --group-directories-first
+# Grid: exa --long --grid
+# Tree Structure: exa --long --tree
+
+# grep (Apparently not part of GNU Coreutils)
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Most Popular ZSH Extensions (https://safjan.com/top-popular-zsh-plugins-on-github/)
+# ZSH Auto-Suggestions (https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
+. ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# ZSH Syntax Highlighting (https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
+. ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# SDKMAN (JVM languages + tools)
+# Scala (/home/austin/.sdkman/candidates/scala/current/bin)
+# Maven (/home/austin/.sdkman/candidates/maven/current/bin)
+# Kotlin (/home/austin/.sdkman/candidates/kotlin/current/bin)
+# Java (/home/austin/.sdkman/candidates/java/current/bin)
+# Gradle: (home/austin/.sdkman/candidates/gradle/current/bin)
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

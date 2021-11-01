@@ -1,5 +1,7 @@
 [user]
-	name = AbyssWatcher
-	email = 18274514+AbyssWatcher@users.noreply.github.com
+    name = AbyssWatcher
+    email = 18274514+AbyssWatcher@users.noreply.github.com
+[core]
+    editor = nvim
 [color]
-	ui = true
+    ui = true

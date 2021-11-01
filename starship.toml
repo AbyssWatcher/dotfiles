@@ -1,5 +1,8 @@
 # Removes blank line between shell prompts
 add_newline = false
 
+# Change the command timeout to be 1000 ms = 3s
+command_timeout = 3000
+
 [line_break]
-disabled = true
+disabled = false

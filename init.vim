@@ -74,6 +74,12 @@ let g:go_highlight_build_constraints = 1
 let g:go_highlight_generate_tags = 1
 """ End Go
 
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 """ Markdown Preview
 let vim_markdown_preview_github=1
 
