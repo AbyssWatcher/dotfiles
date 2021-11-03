@@ -7,6 +7,7 @@
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
 
 # ZSH Options: https://zsh.sourceforge.io/Doc/Release/Options.html
+# ZSH Features: https://code.joejag.com/2014/why-zsh.html
 
 # ZSH History: https://kevinjalbert.com/more-shell-history/
 HISTSIZE=10000 # Number of commands (from history) loaded into shell's memory.
@@ -17,18 +18,46 @@ setopt HIST_FIND_NO_DUPS # No duplicates taken from history.
 setopt INC_APPEND_HISTORY_TIME # Append to history + Not available immediately to other shells.
 setopt HIST_IGNORE_SPACE # Remove commands from history where first char is a space.
 
-setopt globdots # Show hidden files.
 # compinit && _comp_options+=(globdots) # Apparently better option, but does not work.
+setopt globdots # Show hidden files.
+
+# https://unix.stackexchange.com/questions/12288/zsh-insert-completion-on-first-tab-even-if-ambiguous
+setopt menu_complete # Insert completion on first tab (even if ambiguous).
+
+# TODO: Folder Shorthand
+# TODO: Autojump (https://github.com/wting/autojump) vs. Z (https://github.com/rupa/z)(https://github.com/agkozak/zsh-z)
+# TODO: Sudo Plugin (add sudo even after typing full command -> ESC ESC)
+# TODO: Look through ZSH Plugins (https://github.com/ohmyzsh/ohmyzsh/wiki/plugins#vscode)
+# TODO: NPM Plugin (auto-complete to npm commands)
+# TODO: LS (Dotfiles first + Case-Insensitive). EXA (Already default functionality).
+# TODO: ZSH Menu (Dotfiles first + Case-Insensitive). Maintain parity with LS/EXA.
+
+# TODO: Read about ZSH Completion (https://thevaluable.dev/zsh-completion-guide-examples/)
+# TODO: Command Parking with CTRL + q
+# TODO: Go through options for - AND -- flags
+
+# ZSH Substring Search:  https://unix.stackexchange.com/questions/16101/zsh-search-history-on-up-and-down-keys
+# Cycle through history based on characters already typed on the line
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "$key[Up]" up-line-or-beginning-search
+bindkey "$key[Down]" down-line-or-beginning-search
 
 # ZSH Completion w/ correct colors.
 eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' list-colors ''
+
 # ZSH List Directories First
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-dirs-first true
 # ZSH List dotfiles first: Need to use "file-sort".
+
+# ZSH Highlight on Tab
+zstyle ':completion:*' menu select
 
 autoload -Uz compinit && compinit # Use modern completion system.
 
