@@ -6,6 +6,10 @@
 # [.zshrc]: Anthing needed for interactive usage (prompt, command-related, output coloring, aliases, key bindings`:w).
 # https://unix.stackexchange.com/questions/71253/what-should-shouldnt-go-in-zshenv-zshrc-zlogin-zprofile-zlogout
 
+# ZSH Notes
+# - ZSH does not read readline's .inputrc (unlike BASH).
+# - ZSH has its own line editor (ZLE).
+
 # ZSH Options: https://zsh.sourceforge.io/Doc/Release/Options.html
 # ZSH Features: https://code.joejag.com/2014/why-zsh.html
 
@@ -18,11 +22,13 @@ setopt HIST_FIND_NO_DUPS # No duplicates taken from history.
 setopt INC_APPEND_HISTORY_TIME # Append to history + Not available immediately to other shells.
 setopt HIST_IGNORE_SPACE # Remove commands from history where first char is a space.
 
-# compinit && _comp_options+=(globdots) # Apparently better option, but does not work.
+# _comp_options+=(globdots) # Apparently better option.
 setopt globdots # Show hidden files.
 
 # https://unix.stackexchange.com/questions/12288/zsh-insert-completion-on-first-tab-even-if-ambiguous
-setopt menu_complete # Insert completion on first tab (even if ambiguous).
+setopt MENU_COMPLETE # Automatically highlight first element of completion menu.
+setopt AUTO_LIST # Automatically list choices on ambiguous completion.
+setopt COMPLETE_IN_WORD # Complete from both ends of a word.
 
 # TODO: Folder Shorthand
 # TODO: Autojump (https://github.com/wting/autojump) vs. Z (https://github.com/rupa/z)(https://github.com/agkozak/zsh-z)
@@ -45,6 +51,9 @@ zle -N down-line-or-beginning-search
 bindkey "$key[Up]" up-line-or-beginning-search
 bindkey "$key[Down]" down-line-or-beginning-search
 
+# zstyle pattern for the completion
+# :completion:<function>:<completer>:<command>:<argument>:<tag>
+
 # ZSH Completion w/ correct colors.
 eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors "${(s.:.)LS_COLORS}"
@@ -56,7 +65,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-dirs-first true
 # ZSH List dotfiles first: Need to use "file-sort".
 
-# ZSH Highlight on Tab
+# ZSH Highlight on Tab (allows you to select in a menu)
 zstyle ':completion:*' menu select
 
 autoload -Uz compinit && compinit # Use modern completion system.
@@ -75,31 +84,6 @@ autoload -Uz compinit && compinit # Use modern completion system.
 # zstyle ':completion:*' verbose true
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 # zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-# NVM (Node.js) (/home/austin/.nvm/versions/node/<version_number>/bin)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Go (/usr/local/go/bin AND /home/austin/go/bin)
-export GOPATH=$(go env GOPATH)
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-# export PATH=$PATH:/usr/local/go/bin # Adding Go to PATH.
-# export GOPATH=$HOME/go
-# export GOBIN=$GOPATH/bin
-# export PATH=$PATH:$GOPATH/bin
-
-# Elixir (/usr/lib/elixir/bin)
-export PATH=$PATH:/usr/lib/elixir/bin # Adding Elixir to PATH.
-
-# Python (home/austin/.local/bin)
-alias pip="/usr/bin/python -m pip" # Adding an alias for pip.
-
-# Rust (found in .zshenv) (/home/austin/.cargo/bin)
-
-# Starship
-eval "$(starship init zsh)"
 
 # typeset = Set or display attributes and values for shell parameters.
 # -U = When displaying the PATH, keep only the first occurrence of each duplicated value.
@@ -140,6 +124,31 @@ alias egrep='egrep --color=auto'
 . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # ZSH Syntax Highlighting (https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
 . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Starship
+eval "$(starship init zsh)"
+
+# NVM (Node.js) (/home/austin/.nvm/versions/node/<version_number>/bin)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Go (/usr/local/go/bin AND /home/austin/go/bin)
+export GOPATH=$(go env GOPATH)
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+# export PATH=$PATH:/usr/local/go/bin # Adding Go to PATH.
+# export GOPATH=$HOME/go
+# export GOBIN=$GOPATH/bin
+# export PATH=$PATH:$GOPATH/bin
+
+# Elixir (/usr/lib/elixir/bin)
+export PATH=$PATH:/usr/lib/elixir/bin # Adding Elixir to PATH.
+
+# Python (home/austin/.local/bin)
+alias pip="/usr/bin/python -m pip" # Adding an alias for pip.
+
+# Rust (found in .zshenv) (/home/austin/.cargo/bin)
 
 # SDKMAN (JVM languages + tools)
 # Scala (/home/austin/.sdkman/candidates/scala/current/bin)

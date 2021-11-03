@@ -1,5 +1,14 @@
+# https://www.topbug.net/blog/2017/07/31/inputrc-for-humans/
+# GNU Readline: Bash, GDB, SQLite, Lua REPL, Python REPL, Ruby REPL
+
 # Make Tab autocomplete regardless of filename case.
 set completion-ignore-case on
+
+# Sets completions to be listed immediately.
+set show-all-if-ambiguous on
+
+# Possible completions using different colors for file types.
+set colored-stats on
 
 # List all matches in case multiple possible completions are possible.
 # set show-all-if-ambiguous on
