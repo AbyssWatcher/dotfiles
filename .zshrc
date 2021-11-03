@@ -125,6 +125,10 @@ alias egrep='egrep --color=auto'
 # ZSH Syntax Highlighting (https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
 . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Fixed Highlighting Issues with "$".
+# https://github.com/zsh-users/zsh-syntax-highlighting/issues/510
+ZSH_HIGHLIGHT_STYLES[comment]='none'
+
 # Starship
 eval "$(starship init zsh)"
 
