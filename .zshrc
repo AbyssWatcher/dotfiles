@@ -33,11 +33,11 @@ setopt MENU_COMPLETE # Automatically highlight first element of completion menu.
 setopt AUTO_LIST # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD # Complete from both ends of a word.
 
-# TODO: Folder Shorthand
 # TODO: Look through ZSH Plugins (https://github.com/ohmyzsh/ohmyzsh/wiki/plugins#vscode)
 # TODO: LS (Dotfiles first + Case-Insensitive). EXA (Already default functionality).
 # TODO: ZSH Menu (Dotfiles first + Case-Insensitive). Maintain parity with LS/EXA.
 
+# TODO: Start using Folder Shorthand
 # TODO: Read about ZSH Completion (https://thevaluable.dev/zsh-completion-guide-examples/)
 # TODO: Command Parking with CTRL + q
 # TODO: Go through options for - AND -- flags
