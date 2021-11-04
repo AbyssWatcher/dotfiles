@@ -10,6 +10,9 @@
 # - ZSH does not read readline's .inputrc (unlike BASH).
 # - ZSH has its own line editor (ZLE).
 
+# ZSH vs. BASH Scripting: https://unix.stackexchange.com/questions/38172/are-all-bash-scripts-compatible-with-zsh
+# Use #!/usr/bin/env bash for shell scripts so that you don't run into incompatability issues.
+
 # ZSH Options: https://zsh.sourceforge.io/Doc/Release/Options.html
 # ZSH Features: https://code.joejag.com/2014/why-zsh.html
 
@@ -31,10 +34,7 @@ setopt AUTO_LIST # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD # Complete from both ends of a word.
 
 # TODO: Folder Shorthand
-# TODO: Autojump (https://github.com/wting/autojump) vs. Z (https://github.com/rupa/z)(https://github.com/agkozak/zsh-z)
-# TODO: Sudo Plugin (add sudo even after typing full command -> ESC ESC)
 # TODO: Look through ZSH Plugins (https://github.com/ohmyzsh/ohmyzsh/wiki/plugins#vscode)
-# TODO: NPM Plugin (auto-complete to npm commands)
 # TODO: LS (Dotfiles first + Case-Insensitive). EXA (Already default functionality).
 # TODO: ZSH Menu (Dotfiles first + Case-Insensitive). Maintain parity with LS/EXA.
 
@@ -119,11 +119,15 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+alias pip="/usr/bin/python -m pip" # Adding an alias for pip.
+
 # Most Popular ZSH Extensions (https://safjan.com/top-popular-zsh-plugins-on-github/)
 # ZSH Auto-Suggestions (https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
 . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # ZSH Syntax Highlighting (https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
 . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# ZSH Sudo Plugin = ESC ESC (https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/sudo/sudo.plugin.zsh)
+. ~/.zsh/zsh-sudo/sudo.zsh
 
 # Fixed Highlighting Issues with "$".
 # https://github.com/zsh-users/zsh-syntax-highlighting/issues/510
@@ -132,34 +136,6 @@ ZSH_HIGHLIGHT_STYLES[comment]='none'
 # Starship
 eval "$(starship init zsh)"
 
-# NVM (Node.js) (/home/austin/.nvm/versions/node/<version_number>/bin)
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Go (/usr/local/go/bin AND /home/austin/go/bin)
-export GOPATH=$(go env GOPATH)
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-# export PATH=$PATH:/usr/local/go/bin # Adding Go to PATH.
-# export GOPATH=$HOME/go
-# export GOBIN=$GOPATH/bin
-# export PATH=$PATH:$GOPATH/bin
-
-# Elixir (/usr/lib/elixir/bin)
-export PATH=$PATH:/usr/lib/elixir/bin # Adding Elixir to PATH.
-
-# Python (home/austin/.local/bin)
-alias pip="/usr/bin/python -m pip" # Adding an alias for pip.
-
-# Rust (found in .zshenv) (/home/austin/.cargo/bin)
-
-# SDKMAN (JVM languages + tools)
-# Scala (/home/austin/.sdkman/candidates/scala/current/bin)
-# Maven (/home/austin/.sdkman/candidates/maven/current/bin)
-# Kotlin (/home/austin/.sdkman/candidates/kotlin/current/bin)
-# Java (/home/austin/.sdkman/candidates/java/current/bin)
-# Gradle: (home/austin/.sdkman/candidates/gradle/current/bin)
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# Zoxide (Chosen over z-zsh)
+# # https://old.reddit.com/r/zsh/comments/hid56f/which_autojump_plugin_should_i_use_what_is_the
+eval "$(zoxide init zsh)"
