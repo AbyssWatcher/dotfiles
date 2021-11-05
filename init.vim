@@ -18,6 +18,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 Plug 'JamshedVesuna/vim-markdown-preview'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 

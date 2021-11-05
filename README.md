@@ -1,25 +1,25 @@
 # dotfiles
 Dotfiles for Ubuntu Linux
 
-Bash
-- `.bashrc`
-- `.profile`: Set Environment Variables
+## Bash
+- [`.bashrc`](.bashrc)
+- [`.profile`](.profile) (Set Environment Variables)
 
-Git
-- `.gitconfig`
+## Git
+- [`.gitconfig`](.gitconfig)
 
-GNU Readline
-- `.inputrc`
+## GNU Readline
+- [`.inputrc`](.inputrc)
 
-Neovim
-- `init.vim`
+## Neovim
+- [`init.vim`](init.vim)
 
-Starship Prompt
-- `starship.toml`
+## Starship Prompt
+- [`starship.toml`](starship.toml)
 
-Tmux
-- `.tmux.conf`
+## Tmux
+- [`.tmux.conf`](.tmux.conf)
 
-Zsh
-- `.zshrc`
-- `.zshenv`: Set Environment Variables
+## Zsh
+- [`.zshrc`](.zshrc)
+- [`.zshenv`](.zshenv) (Set Environment Variables)
